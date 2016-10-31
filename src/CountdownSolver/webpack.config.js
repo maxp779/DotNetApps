@@ -12,19 +12,29 @@ module.exports = {
         path: path.join(__dirname, '/wwwroot/js/'),
         filename: 'countdownsolver.build.js'
     },
-    module: {
-    loaders: [
-      {
-          test: /.jsx?$/,
-          loader: 'babel-loader',
-          //exclude: /node_modules/,
-          include: [
-            path.resolve(__dirname, "Scripts"),
-          ],
-          query: {
-              presets: ['es2015', 'react']
+
+
+    plugins: [
+      new webpack.DefinePlugin({
+          'process.env': {
+              'NODE_ENV': JSON.stringify('production')
           }
-      }
-    ]
-},
+      })
+    ],
+
+    module: {
+        loaders: [
+          {
+              test: /.jsx?$/,
+              loader: 'babel-loader',
+              //exclude: /node_modules/,
+              include: [
+                path.resolve(__dirname, "Scripts"),
+              ],
+              query: {
+                  presets: ['es2015', 'react']
+              }
+          }
+        ],
+    },
 };

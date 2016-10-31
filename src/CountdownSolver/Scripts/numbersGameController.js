@@ -50,7 +50,7 @@ class NumbersGameController extends React.Component {
     handleSubmit(event)
     {
         event.preventDefault();
-        this.setState({currentAnswer:[], loading:true});
+        this.setState({currentAnswer:[], loading:true, numbersMessage:<p>Solutions will appear here</p>});
         let toServer =[this.state.number1,
             this.state.number2, 
             this.state.number3, 
