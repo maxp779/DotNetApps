@@ -1,0 +1,97 @@
+/*!
+ * Start Bootstrap - 1 Col Portfolio (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    background-image: url("../img/background3.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.brand {
+    display: inherit;
+    margin: 0;
+    padding: 30px 0 10px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 5em;
+    font-weight: 700;
+    line-height: normal;
+    color: #fff;
+}
+
+/*.title {
+    margin: 0;
+    padding: 30px 0 10px;
+    font-family: "Arial";
+    font-size: 5em;
+    font-style: italic;
+    line-height: normal;
+    color: #87CEEB;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.6);
+}*/
+
+
+.transparent-panel {
+    background: rgba(255,255,255,0.95);
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.resize-image {
+    height: auto; 
+    width: auto; 
+    max-width: 300px; 
+    max-height: 300px;
+}
+
+.title {
+    margin: 0;
+    padding: 30px 0 10px;
+    font-family: "Arial Black", Gadget, sans-serif	;
+    font-size: 4em;
+    font-style: italic;
+    line-height: normal;
+    animation-name: color-change;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+
+/* Standard syntax */
+@keyframes color-change {
+    0%   {color:red;}
+    25%  {color :orange;}
+    50%  {color :mediumpurple;}
+    75%   {color :deepskyblue;}
+    100%   {color :red;}
+
+
+}
+
+
+.familiarSkill
+{
+    color: yellow;
+}
+.competentSkill
+{
+    color: green;
+}
+.goodSkill
+{
+    color: mediumpurple
+}
+.masterSkill
+{
+    color: purple
+}
