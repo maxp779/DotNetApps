@@ -8,23 +8,26 @@ class LettersGameController extends React.Component {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleReset = this.handleReset.bind(this);
 
         this.state = {
             wordsList:[],
             currentLetters:"",
-            lettersMessage:<p>Words will appear here</p>
+            lettersMessage:<p>Words will appear here</p>,
+            loading:false
         }
     }
     
-    handleClick(event)
+    handleReset(event)
     {
         this.setState({
             wordsList:[],
             currentLetters:"",
-            lettersMessage:<p>Words will appear here</p>
+            lettersMessage:<p>Words will appear here</p>,
+            loading:false
         });
     }
+
 
     handleChange(event)
     {
@@ -34,8 +37,10 @@ class LettersGameController extends React.Component {
     handleSubmit(event)
     {
         event.preventDefault();
-
-        var request = new Request('/api/countdownletters/' + this.state.currentLetters, {
+        this.setState({wordsList:[],
+            lettersMessage:<p>Words will appear here</p>,
+            loading:true});
+        var request = new Request('/countdownsolver/countdownletters/' + this.state.currentLetters, {
             method: 'get', 
             mode: 'cors', 
             redirect: 'follow',
@@ -58,7 +63,7 @@ class LettersGameController extends React.Component {
                     // DESC -> b.length - a.length
                     return b.length - a.length;
                 });
-
+                self.setState({loading:false});
                 self.updateWordsListAndMessage(returnedObject);
             });
     }
@@ -72,27 +77,25 @@ class LettersGameController extends React.Component {
             {
                 minifiedWordsList[index] = wordsList[index];
             }
-            this.setState({wordsList:minifiedWordsList});
-            this.setState({lettersMessage:<div><p>{wordsList.length} words found</p>
+            this.setState({wordsList:minifiedWordsList, lettersMessage:<div><p>{wordsList.length} words found</p>
             <p>Only the first 1000 are shown</p></div>});
         }
         else
         {
-            this.setState({wordsList:wordsList});
-            this.setState({lettersMessage:<p>{wordsList.length} words found</p>});
+            this.setState({wordsList:wordsList, lettersMessage:<p>{wordsList.length} words found</p>});
         }
-
     }
 
             render() {
                 return (
             <LettersGameView 
-                    currentLetters={this.state.currentLetters}
+        loading={this.state.loading}
+        currentLetters={this.state.currentLetters}
         lettersMessage={this.state.lettersMessage}
         wordsList={this.state.wordsList} 
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
-        handleClick={this.handleClick}
+        handleReset={this.handleReset}
             />
       );
     }

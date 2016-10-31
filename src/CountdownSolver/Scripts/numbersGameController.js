@@ -22,6 +22,7 @@ class NumbersGameController extends React.Component {
             target:"",
             currentAnswer:[],
             numbersMessage:<p>Solutions will appear here</p>,
+            loading:false
         }
     }
 
@@ -37,6 +38,7 @@ class NumbersGameController extends React.Component {
             target:"",
             currentAnswer:[],
             numbersMessage:<p>Solutions will appear here</p>,
+            loading:false
         });
     }
 
@@ -48,7 +50,7 @@ class NumbersGameController extends React.Component {
     handleSubmit(event)
     {
         event.preventDefault();
-
+        this.setState({currentAnswer:[], loading:true});
         let toServer =[this.state.number1,
             this.state.number2, 
             this.state.number3, 
@@ -58,7 +60,7 @@ class NumbersGameController extends React.Component {
             this.state.target];
         console.log("NUMBERS GAME");
         console.log(toServer);
-        var request = new Request('/api/countdownnumbers/' + JSON.stringify(toServer), {
+        var request = new Request('/countdownsolver/countdownnumbers/' + JSON.stringify(toServer), {
             method: 'get', 
             mode: 'cors', 
             redirect: 'follow',
@@ -77,7 +79,7 @@ class NumbersGameController extends React.Component {
 
                 self.setState({currentAnswer:returnedObject});
                 let numberOfSolutions = returnedObject.length;
-                self.setState({numbersMessage:<p>{numberOfSolutions} solutions found</p>});
+                self.setState({loading:false, numbersMessage:<p>{numberOfSolutions} solutions found</p>});
             });
     }
 
@@ -102,6 +104,7 @@ class NumbersGameController extends React.Component {
     number5={this.state.number5}
     number6={this.state.number6}
     target={this.state.target}
+    loading={this.state.loading}
     />
   );
     }

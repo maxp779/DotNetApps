@@ -10,7 +10,7 @@ using CountdownSolver.Models;
 
 namespace CountdownSolver.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("countdownsolver/[controller]")]
     public class CountdownLettersController : Controller
     {
         // GET: api/values

@@ -1,14 +1,16 @@
 ﻿import { Panel,Button,FormGroup,ControlLabel,FormControl,InputGroup,Row,Col } from 'react-bootstrap';
 import React from 'react';
 
-let listStyle = {
-    "maxHeight": "300px",
-    "overflowY":"scroll"
-};
-
 class LettersGameView extends React.Component {
     
     render() {
+        let loadingSpinner;
+        if (this.props.loading) {
+            loadingSpinner = <div className="loader"></div>;
+        }
+        else{
+            loadingSpinner = "";
+        }
         return (
     <Panel header="Countdown letters helper" bsStyle="primary">
         <Row>
@@ -25,8 +27,8 @@ class LettersGameView extends React.Component {
                                     onChange={this.props.handleChange}
                                         />
                             <InputGroup.Button>
-                                <Button bsStyle="primary" type="submit">Find words</Button>
-                                <Button bsStyle="danger" type="button" onClick={this.props.handleClick}>Reset</Button>
+                                <Button bsStyle="primary" type="submit">Search</Button>
+                                <Button bsStyle="danger" type="button" onClick={this.props.handleReset}>Reset</Button>
                             </InputGroup.Button>
                         </InputGroup>
                     </FormGroup>
@@ -34,8 +36,17 @@ class LettersGameView extends React.Component {
             </Col>
         <Col xs={12} md={6} style={{"float":"right"}}>
             <Panel header="Words" bsStyle="info">
+                <Row>
+                    <Col xs={12}>
             {this.props.lettersMessage}
-            <ul style={listStyle}>
+                    </Col>
+                </Row>
+            <Row>
+                <Col xs={12}>
+            {loadingSpinner}
+                </Col>
+            </Row>
+            <ul className="scrollableList">
             {this.props.wordsList.map(function(listValue){
 
                 let decriptiveWord = "letters"

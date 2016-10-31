@@ -27,17 +27,6 @@ footer {
     color: #fff;
 }
 
-/*.title {
-    margin: 0;
-    padding: 30px 0 10px;
-    font-family: "Arial";
-    font-size: 5em;
-    font-style: italic;
-    line-height: normal;
-    color: #87CEEB;
-    text-shadow: 3px 3px 3px rgba(0,0,0,0.6);
-}*/
-
 
 .transparent-panel {
     background: rgba(255,255,255,0.95);
@@ -61,6 +50,11 @@ footer {
     font-size: 4em;
     font-style: italic;
     line-height: normal;
+
+    -webkit-animation-name: color-change;
+    -webkit-animation-duration: 20s;
+    -webkit-animation-iteration-count: infinite;
+
     animation-name: color-change;
     animation-duration: 20s;
     animation-iteration-count: infinite;
@@ -68,14 +62,20 @@ footer {
 
 
 /* Standard syntax */
+@-webkit-keyframes color-change {
+    0%   {color:red;}
+    25%  {color :orange;}
+    50%  {color :mediumpurple;}
+    75%   {color :deepskyblue;}
+    100%   {color :red;}
+}
+
 @keyframes color-change {
     0%   {color:red;}
     25%  {color :orange;}
     50%  {color :mediumpurple;}
     75%   {color :deepskyblue;}
     100%   {color :red;}
-
-
 }
 
 
