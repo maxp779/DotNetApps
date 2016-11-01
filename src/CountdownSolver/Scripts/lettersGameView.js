@@ -23,7 +23,7 @@ class LettersGameView extends React.Component {
                                     type="text"
                                     required="required"
                                     value={this.props.currentLetters}
-                                    placeholder="e.g 'elomsftpg'"
+                                    placeholder="e.g 'qwertyuio'"
                                     onChange={this.props.handleChange}
                                         />
                             <InputGroup.Button>

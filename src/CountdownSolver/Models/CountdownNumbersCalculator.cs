@@ -8,17 +8,17 @@ namespace CountdownSolver.Models
 {
     public class CountdownNumbersCalculator
     {
-        private static List<int> values;
-        private static char[] ops = { '+', '-', '/', '*' };
+        private List<int> values;
+        private char[] ops = { '+', '-', '/', '*' };
 
-        public static HashSet<string> calculate(List<int> numbers, int targetNumber, int threadCount = 1)
+        public HashSet<string> calculate(List<int> numbers, int targetNumber, int threadCount = 1)
         {
             values = numbers;
             HashSet<string> output = solve(targetNumber);
             return output;
         }
 
-        private static HashSet<string> solve(int target)
+        private HashSet<string> solve(int target)
         {
             HashSet<string> ans = new HashSet<string>();
             HashSet<int> set = new HashSet<int>();
@@ -37,7 +37,7 @@ namespace CountdownSolver.Models
             return ans;
         }
 
-        private static void looper(int total, int target, HashSet<string> ans,
+        private void looper(int total, int target, HashSet<string> ans,
                 HashSet<int> set, List<char> operands)
         {
             foreach (int n in values)
@@ -61,7 +61,7 @@ namespace CountdownSolver.Models
             }
         }
 
-        private static String opAlgoFormat(HashSet<int> set,
+        private String opAlgoFormat(HashSet<int> set,
                 List<char> values)
         {
             IEnumerator<int> iter = set.GetEnumerator();
@@ -83,7 +83,7 @@ namespace CountdownSolver.Models
             return toString;
         }
 
-        private static int chrToValue(int n1, char op, int n2)
+        private int chrToValue(int n1, char op, int n2)
         {
             switch (op)
             {

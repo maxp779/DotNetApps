@@ -27,9 +27,8 @@ namespace CountdownSolver.Controllers
             List<int> numbers = JsonConvert.DeserializeObject<List<int>>(numbersArray);
             int targetNumber = numbers.Last<int>(); //target number is the final number in the array
             numbers.RemoveAt(numbers.Count - 1);
-
-            HashSet<string> output = CountdownNumbersCalculator.calculate(numbers, targetNumber);
-
+            CountdownNumbersCalculator calculator = new CountdownNumbersCalculator();
+            HashSet<string> output = calculator.calculate(numbers, targetNumber);
             return Json(output);
         }
 

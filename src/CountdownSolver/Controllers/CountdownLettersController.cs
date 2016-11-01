@@ -24,8 +24,9 @@ namespace CountdownSolver.Controllers
         // GET api/values/5
         [HttpGet("{inputCharacters}")]
         public JsonResult Get(string inputCharacters)
-        {
-            ICollection<string> wordsFound = WordList.findAllWords(inputCharacters);
+        { 
+            CountdownWordsFinder wordFinder = new CountdownWordsFinder();
+            ICollection<string> wordsFound = wordFinder.findAllWords(inputCharacters);
             return Json(wordsFound);
         }
 

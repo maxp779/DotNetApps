@@ -32,7 +32,7 @@ namespace CountdownSolver
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            WordList.populateWordList();
+            CountdownWordsFinder.populateWordList();
         }
 
         public IConfigurationRoot Configuration { get; }
