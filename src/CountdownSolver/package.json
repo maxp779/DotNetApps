@@ -16,7 +16,6 @@
   "devDependencies": {},
   "scripts": {
     "webpack": "webpack"
-  }
-
-, "-vs-binding":{"BeforeBuild":["webpack"]}
+  }, 
+  "-vs-binding":{"BeforeBuild":["webpack"]}
 }

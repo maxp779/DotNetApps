@@ -1,9 +1,35 @@
-﻿.scrollableList{
-    max-height: 300px;
+﻿@media screen and (min-width: 1025px) /* Desktop */ {
+    body{
+        background-image:url('../img/countdown.jpg');
+        background-repeat:no-repeat;
+        background-size: cover;
+        background-attachment:fixed;
+        background-position:center center;
+    }
+}
+
+@media screen  and (min-width: 501px) and (max-width: 1024px) /* Tablet */ {
+    body{
+        background-image:url('../img/countdown.jpg');
+        background-repeat:no-repeat;
+        background-size: cover;
+        background-attachment:fixed;
+        background-position:center center;
+    }
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+    body{
+        background-color:black;
+    }
+}
+
+.scrollableList{
+    max-height: 200px;
     overflow-y:scroll; 
 }
 
-.title {
+.countdown {
     -webkit-animation-name: color-change;
     -webkit-animation-duration: 90s;
     -webkit-animation-iteration-count: infinite;
@@ -13,50 +39,106 @@
     animation-iteration-count: infinite;
 }
 
+.solver {
+    -webkit-animation-name: color-change2;
+    -webkit-animation-duration: 90s;
+    -webkit-animation-iteration-count: infinite;
+
+    animation-name: color-change2;
+    animation-duration: 90s;
+    animation-iteration-count: infinite;
+}
+
 @-webkit-keyframes color-change {
-    5%   {color:white;}
-    10%  {color :#33EEFF;}
-    15%  {color :#33FFE3;}
-    20%   {color :#33FFB1;}
-    25%   {color :#BEFF33;}
-    30%   {color :#F3FF33;}
-    35%   {color :#FFCE33;}
-    40%   {color :#FF9D33;}
-    45%   {color :#FF5533;}
-    50%   {color :#FF3333;}
-    55%   {color :#FF3386;}
-    60%   {color :#FF33E1;}
-    65%   {color :#C633FF;}
-    70%   {color :#7633FF;}
-    75%   {color :#333CFF;}
-    80%   {color :#3384FF;}
-    85%   {color :#33C8FF;}
-    90%   {color :#33FFC8;}
-    95%   {color :#33FF93;}
-    100%   {color :white;}
+    5%   {color:#33FF34;}
+    10%  {color :#A3FF33;}
+    15%  {color :#F3FF33;}
+    20%   {color :#FFE133;}
+    25%   {color :#FFC333;}
+    30%   {color :#FF8633;}
+    35%   {color :#FF3333;}
+    40%   {color :#FF3373;}
+    45%   {color :#FF33B0;}
+    50%   {color :#FF33E9;}
+    55%   {color :#C633FF;}
+    60%   {color :#8D33FF;}
+    65%   {color :#4533FF;}
+    70%   {color :#3388FF;}
+    75%   {color :#33AEFF;}
+    80%   {color :#33D7FF;}
+    85%   {color :#33FFF6;}
+    90%   {color :#33FFC4;}
+    95%   {color :#33FFAA;}
+    100%   {color :#33FF34;}
 }
 
 @keyframes color-change {
-    5%   {color:white;}
-    10%  {color :#33EEFF;}
-    15%  {color :#33FFE3;}
-    20%   {color :#33FFB1;}
-    25%   {color :#BEFF33;}
-    30%   {color :#F3FF33;}
-    35%   {color :#FFCE33;}
-    40%   {color :#FF9D33;}
-    45%   {color :#FF5533;}
+    5%   {color:#33FF34;}
+    10%  {color :#A3FF33;}
+    15%  {color :#F3FF33;}
+    20%   {color :#FFE133;}
+    25%   {color :#FFC333;}
+    30%   {color :#FF8633;}
+    35%   {color :#FF3333;}
+    40%   {color :#FF3373;}
+    45%   {color :#FF33B0;}
+    50%   {color :#FF33E9;}
+    55%   {color :#C633FF;}
+    60%   {color :#8D33FF;}
+    65%   {color :#4533FF;}
+    70%   {color :#3388FF;}
+    75%   {color :#33AEFF;}
+    80%   {color :#33D7FF;}
+    85%   {color :#33FFF6;}
+    90%   {color :#33FFC4;}
+    95%   {color :#33FFAA;}
+    100%   {color :#33FF34;}
+}
+
+@keyframes color-change2 {
+    5%   {color:#33E6FF;}
+    10%  {color :#33BDFF;}
+    15%  {color :#3384FF;}
+    20%   {color :#5833FF;}
+    25%   {color :#7A33FF;}
+    30%   {color :#AB33FF;}
+    35%   {color :#EB33FF;}
+    40%   {color :#FF33BF;}
+    45%   {color :#FF3383;}
     50%   {color :#FF3333;}
-    55%   {color :#FF3386;}
-    60%   {color :#FF33E1;}
-    65%   {color :#C633FF;}
-    70%   {color :#7633FF;}
-    75%   {color :#333CFF;}
-    80%   {color :#3384FF;}
-    85%   {color :#33C8FF;}
-    90%   {color :#33FFC8;}
-    95%   {color :#33FF93;}
-    100%   {color :white;}
+    55%   {color :#FF7F33;}
+    60%   {color :#FFA533;}
+    65%   {color :#FFD633;}
+    70%   {color :#FFE933;}
+    75%   {color :#DCFF33;}
+    80%   {color :#85FF33;}
+    85%   {color :#36FF33;}
+    90%   {color :#33FF88;}
+    95%   {color :#33FFC0;}
+    100%   {color :#33E6FF;}
+}
+
+@-webkit-keyframes color-change2 {
+    5%   {color:#33E6FF;}
+    10%  {color :#33BDFF;}
+    15%  {color :#3384FF;}
+    20%   {color :#5833FF;}
+    25%   {color :#7A33FF;}
+    30%   {color :#AB33FF;}
+    35%   {color :#EB33FF;}
+    40%   {color :#FF33BF;}
+    45%   {color :#FF3383;}
+    50%   {color :#FF3333;}
+    55%   {color :#FF7F33;}
+    60%   {color :#FFA533;}
+    65%   {color :#FFD633;}
+    70%   {color :#FFE933;}
+    75%   {color :#DCFF33;}
+    80%   {color :#85FF33;}
+    85%   {color :#36FF33;}
+    90%   {color :#33FF88;}
+    95%   {color :#33FFC0;}
+    100%   {color :#33E6FF;}
 }
 
 .loader {
@@ -80,11 +162,11 @@
     100% { transform: rotate(360deg); }
 }
 
-.heading
+h1
 {
     display:inherit;
     margin:0;
-    padding:30px 0 10px;
+    padding:10px 0 10px;
     text-align:center;
     text-shadow:1px 1px 2px rgba(0,0,0,0.5);
     font-family:Josefin Slab,Helvetica Neue,Helvetica,Arial,sans-serif;
@@ -95,7 +177,7 @@
     color:#fff;
 }
 
-.subheading
+h2
 {
     display:inherit;
     margin:0;

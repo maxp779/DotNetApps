@@ -4,10 +4,12 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 40px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     background-image: url("../img/background3.jpg");
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-position:center center;
 }
 
 footer {
@@ -47,37 +49,57 @@ footer {
     margin: 0;
     padding: 30px 0 10px;
     font-family: "Arial Black", Gadget, sans-serif	;
-    font-size: 4em;
+    font-size: 3em;
+    font-style: italic;
+    line-height: normal;
+    text-decoration: underline;
+
+    -webkit-animation-name: color-change;
+    -webkit-animation-duration: 40s;
+    -webkit-animation-iteration-count: infinite;
+
+    animation-name: color-change;
+    animation-duration: 40s;
+    animation-iteration-count: infinite;
+}
+
+.project-title
+{
+    margin: 0;
+    font-family: "Arial Black", Gadget, sans-serif	;
+    font-size: 2em;
     font-style: italic;
     line-height: normal;
 
     -webkit-animation-name: color-change;
-    -webkit-animation-duration: 20s;
+    -webkit-animation-duration: 40s;
     -webkit-animation-iteration-count: infinite;
 
     animation-name: color-change;
-    animation-duration: 20s;
+    animation-duration: 40s;
     animation-iteration-count: infinite;
+
 }
 
 
 /* Standard syntax */
 @-webkit-keyframes color-change {
     0%   {color:red;}
-    25%  {color :orange;}
-    50%  {color :mediumpurple;}
-    75%   {color :deepskyblue;}
+    20%  {color :orange;}
+    40%  {color :mediumpurple;}
+    60%   {color :deepskyblue;}
+    80%   {color :goldenrod;}
     100%   {color :red;}
 }
 
 @keyframes color-change {
     0%   {color:red;}
-    25%  {color :orange;}
-    50%  {color :mediumpurple;}
-    75%   {color :deepskyblue;}
+    20%  {color :orange;}
+    40%  {color :mediumpurple;}
+    60%   {color :deepskyblue;}
+    80%   {color :goldenrod;}
     100%   {color :red;}
 }
-
 
 .familiarSkill
 {
@@ -94,4 +116,17 @@ footer {
 .masterSkill
 {
     color: purple
+}
+
+.spacer
+{
+    margin-top:20px;
+}
+
+ .carousel-indicators li {
+    background: grey;
+}
+
+.carousel-indicators .active {
+    background:  #00ff00;
 }
