@@ -1,4 +1,4 @@
-﻿import { Panel,Button,FormGroup,ControlLabel,FormControl,InputGroup,Row,Col } from 'react-bootstrap';
+﻿import { Panel,Button,FormGroup,ControlLabel,FormControl,InputGroup,Row,Col,Checkbox } from 'react-bootstrap';
 import { AboutPageModal } from './aboutPageModal';
 import React from 'react';
 
@@ -80,6 +80,18 @@ class NumbersGameView extends React.Component {
                             min="1"
                             required="required"
                         />
+                        </InputGroup>
+                    <ControlLabel className="spacer">Select speed (slower brings more solutions)</ControlLabel>
+                    <InputGroup>
+                        <FormControl 
+                            componentClass="select"
+                            placeholder="fast"
+                            name="speed"
+                            onChange={this.props.handleChange}
+                            value={this.props.speed}>
+                            <option value="fast">Fast</option>
+                            <option value="slow">Slow</option>
+                        </FormControl>
                     </InputGroup>
                     <ControlLabel className="spacer">Enter target number</ControlLabel>
                     <InputGroup>

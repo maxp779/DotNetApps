@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CountdownSolver.Models
 {
-    public class ThreadedWordFinder
+    public class WordFinderThread
     {
         private int minIndex;
         private int maxIndex;
@@ -16,7 +16,7 @@ namespace CountdownSolver.Models
         private ICollection<char> letters;
         private ICollection<string> dictionary;
 
-        public ThreadedWordFinder(int minIndex, int maxIndex, ref IProducerConsumerCollection<string> wordsFound, ref ICollection<char> letters, ref ICollection<string> dictionary)
+        public WordFinderThread(int minIndex, int maxIndex, ref IProducerConsumerCollection<string> wordsFound, ref ICollection<char> letters, ref ICollection<string> dictionary)
         {
             this.minIndex = minIndex;
             this.maxIndex = maxIndex;

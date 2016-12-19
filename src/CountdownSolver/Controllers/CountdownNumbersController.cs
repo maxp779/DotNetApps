@@ -13,22 +13,23 @@ namespace CountdownSolver.Controllers
     [Route("countdownsolver/[controller]")]
     public class CountdownNumbersController : Controller
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("{jsonString}")]
+        public JsonResult Get(string jsonString)
         {
-            return new string[] { "value1", "value2" };
-        }
+            NumbersInput numbersGameInput = JsonConvert.DeserializeObject<NumbersInput>(jsonString);
+            ICollection<string> output;
+            if(numbersGameInput.speed == "fast")
+            {
+                CountdownNumbersCalculatorFast calculator = new CountdownNumbersCalculatorFast();
+                List<int> intList = numbersGameInput.numbers.Select(s => int.Parse(s)).ToList();
 
-        // GET api/values/5
-        [HttpGet("{numbersArray}")]
-        public JsonResult Get(string numbersArray)
-        {
-            List<int> numbers = JsonConvert.DeserializeObject<List<int>>(numbersArray);
-            int targetNumber = numbers.Last<int>(); //target number is the final number in the array
-            numbers.RemoveAt(numbers.Count - 1);
-            CountdownNumbersCalculator calculator = new CountdownNumbersCalculator();
-            HashSet<string> output = calculator.calculate(numbers, targetNumber);
+                output = calculator.calculate(intList, Convert.ToInt32(numbersGameInput.target));
+            }
+            else
+            {
+                CountdownNumbersCalculatorSlow calculator = new CountdownNumbersCalculatorSlow(numbersGameInput.numbers, numbersGameInput.target);
+                output = calculator.calculate();
+            }
             return Json(output);
         }
 
@@ -48,6 +49,14 @@ namespace CountdownSolver.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        public class NumbersInput
+        {
+            public List<string> numbers { get; set; }
+            public string target { get; set; }
+            public string speed { get; set; }
+
         }
     }
 }

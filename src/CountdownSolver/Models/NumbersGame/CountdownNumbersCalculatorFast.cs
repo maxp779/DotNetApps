@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CountdownSolver.Models
 {
-    public class CountdownNumbersCalculator
+    public class CountdownNumbersCalculatorFast
     {
         private List<int> values;
         private char[] ops = { '+', '-', '/', '*' };
 
-        public HashSet<string> calculate(List<int> numbers, int targetNumber, int threadCount = 1)
+        public HashSet<string> calculate(List<int> numbers, int targetNumber)
         {
             values = numbers;
             HashSet<string> output = solve(targetNumber);

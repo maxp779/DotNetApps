@@ -5,10 +5,10 @@ module.exports = {
     entry: {
         main: './Scripts/main',
     },
-    debug:false,
+    //debug:false,
     //this allows for stepping through code in the chrome debugger
-    //debug: true,
-    //devtool: "#eval-source-map",
+    debug: true,
+    devtool: "#eval-source-map",
     output: {
         publicPath: "/js/",
         path: path.join(__dirname, '/wwwroot/js/'),
@@ -19,7 +19,7 @@ module.exports = {
     plugins: [
       new webpack.DefinePlugin({
           'process.env': {
-              'NODE_ENV': JSON.stringify('production')
+              'NODE_ENV': JSON.stringify('development') //set to 'development' for development mode
           }
       }),
         new webpack.optimize.UglifyJsPlugin({

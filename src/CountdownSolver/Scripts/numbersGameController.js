@@ -20,6 +20,7 @@ class NumbersGameController extends React.Component {
             number5:"",
             number6:"",
             target:"",
+            speed:"fast",
             currentAnswer:[],
             numbersMessage:<p>Solutions will appear here</p>,
             loading:false
@@ -36,6 +37,7 @@ class NumbersGameController extends React.Component {
             number5:"",
             number6:"",
             target:"",
+            speed:"fast",
             currentAnswer:[],
             numbersMessage:<p>Solutions will appear here</p>,
             loading:false
@@ -51,14 +53,16 @@ class NumbersGameController extends React.Component {
     {
         event.preventDefault();
         this.setState({currentAnswer:[], loading:true, numbersMessage:<p>Solutions will appear here</p>});
-        let toServer =[this.state.number1,
+        let toServer = {};       
+            toServer.numbers =[this.state.number1,
             this.state.number2, 
             this.state.number3, 
             this.state.number4, 
             this.state.number5, 
-            this.state.number6, 
-            this.state.target];
-        console.log("NUMBERS GAME");
+            this.state.number6]  
+            toServer.target = this.state.target
+            toServer.speed=this.state.speed;
+
         console.log(toServer);
         var request = new Request('/countdownsolver/countdownnumbers/' + JSON.stringify(toServer), {
             method: 'get', 
@@ -104,6 +108,7 @@ class NumbersGameController extends React.Component {
     number5={this.state.number5}
     number6={this.state.number6}
     target={this.state.target}
+    speed={this.state.speed}
     loading={this.state.loading}
     />
   );

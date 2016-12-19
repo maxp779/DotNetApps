@@ -43,7 +43,7 @@ namespace CountdownSolver.Models
                     currentMaxIndex = dictionary.Count - 1;
                 }
          
-                ThreadedWordFinder currentWordFinder = new ThreadedWordFinder(currentMinIndex, currentMaxIndex, ref wordsFound, ref letters, ref dictionary);
+                WordFinderThread currentWordFinder = new WordFinderThread(currentMinIndex, currentMaxIndex, ref wordsFound, ref letters, ref dictionary);
                 threadList.Add(new Thread(() => currentWordFinder.start()));
                 currentMinIndex = currentMaxIndex;
                 currentMaxIndex += range;           
