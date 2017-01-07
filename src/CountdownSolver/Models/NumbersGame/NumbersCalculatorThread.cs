@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace CountdownSolver.Models
 {
@@ -10,25 +11,29 @@ namespace CountdownSolver.Models
         //passed in externally
         int minIndex;
         int maxIndex;
-        IProducerConsumerCollection<string> infixSolutions;
+        IProducerConsumerCollection<string> outputInfixSolutions;
+        IProducerConsumerCollection<string> outputPostfixSolutions;
         List<List<string>> operandList;
         int target;
 
         //created in this thread
-        List<List<string>> postfixSolutions;
+        List<List<string>> currentPostfixSolutions;
         List<string> currentClosestCalculation;
         int currentClosestTarget;
         bool findMoreSolutions = true;
         int solutionsLimit;
 
-        public NumbersCalculatorThread(int minIndex, int maxIndex, IProducerConsumerCollection<string> infixSolutions, List<List<string>> operandList, string target, int solutionsLimit = -1)
+        public NumbersCalculatorThread(int minIndex, int maxIndex, IProducerConsumerCollection<string> infixSolutionsCollection, IProducerConsumerCollection<string> postfixSolutionsCollection, 
+            List<List<string>> operandList, string target, int solutionsLimit = -1)
         {
             this.minIndex = minIndex;
             this.maxIndex = maxIndex;
-            this.infixSolutions = infixSolutions;
+            this.outputInfixSolutions = infixSolutionsCollection;
+            this.outputPostfixSolutions = postfixSolutionsCollection;
+
             this.operandList = operandList;
             this.target = int.Parse(target);
-            postfixSolutions = new List<List<string>>();
+            currentPostfixSolutions = new List<List<string>>();
             this.solutionsLimit = solutionsLimit;
         }
 
@@ -50,7 +55,7 @@ namespace CountdownSolver.Models
                 currentIndex++;
             }
 
-            convertToInfix(postfixSolutions, infixSolutions);
+            convertToInfix(currentPostfixSolutions, outputInfixSolutions);
         }
 
         /// <summary>
@@ -82,7 +87,7 @@ namespace CountdownSolver.Models
             }
             
             //for performance reasons it is best to limit the amount of solutions to find in cases where processor count is low
-            if (postfixSolutions.Count >= solutionsLimit && solutionsLimit != -1)
+            if (currentPostfixSolutions.Count >= solutionsLimit && solutionsLimit != -1)
             {
                 findMoreSolutions = false;
             }
@@ -144,7 +149,8 @@ namespace CountdownSolver.Models
                 if (result == target)
                 {
                     currentCalculation.Reverse();
-                    postfixSolutions.Add(currentCalculation);
+                    currentPostfixSolutions.Add(currentCalculation);
+                    outputPostfixSolutions.TryAdd(listToString(currentCalculation));
                 }
                 else //it does not hit the target so check if it beats the current closest calculation
                 {
@@ -258,6 +264,17 @@ namespace CountdownSolver.Models
         private bool isOperator(string input)
         {
             return operators.Contains(input);
+        }
+
+        private string listToString(List<string> input)
+        {
+            StringBuilder output = new StringBuilder();
+
+            foreach(string aString in input)
+            {
+                output.Append(aString);
+            }
+            return output.ToString();
         }
     }
 }

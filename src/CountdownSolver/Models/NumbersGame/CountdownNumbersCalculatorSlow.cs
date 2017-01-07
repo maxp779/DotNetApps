@@ -13,7 +13,7 @@ namespace CountdownSolver.Models
         private string target;
         bool findAllSolutions;
         IProducerConsumerCollection<string> infixSolutions = new ConcurrentBag<string>();
-
+        IProducerConsumerCollection<string> postfixSolutions = new ConcurrentBag<string>();
 
         public CountdownNumbersCalculatorSlow(List<string> operands, string target, bool findAllSolutions = true)
         {
@@ -22,13 +22,14 @@ namespace CountdownSolver.Models
             this.findAllSolutions = findAllSolutions;
         }
 
-
         public List<string> calculate()
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
+
             //collect all operand permutations
             List<List<string>> operandLists = getAllOperandPermutations();
-
+            
+            //reorder operands for maximum efficiency
             List<List<string>> orderedOperandLists = reorderOperandPermutations(operandLists);
 
             //create list of threads to deal with operand permutations
@@ -49,9 +50,25 @@ namespace CountdownSolver.Models
             return infixSolutions.ToList<string>();
         }
 
-        private List<List<string>> reorderOperandPermutations(List<List<string>> inputList)
+        /// <summary>
+        /// Reorders the operands to maximize thread efficiency.
+        /// 
+        /// By default the operand permutation lists tend to be ordered by their size. Lists of size
+        /// 2 end up at the start and size 6 at the end. The result is threads working on the end of the list
+        /// have a lot more workto do  with the larger lists. Threads at the start would finish quickly as 
+        /// their operand lists would only be size 2.
+        /// 
+        /// This method reorders like so:
+        /// from: [2,2,2,3,3,3,4,4,4,5,5,5,6,6,6]
+        /// to: [2,3,4,5,6,2,3,4,5,6,2,3,4,5,6]
+        /// 
+        /// Assuming those numbers represent a list's size.
+        /// </summary>
+        /// <param name="inputList"></param>
+        /// <returns></returns>
+        private List<List<string>> reorderOperandPermutations(ICollection<List<string>> inputList)
         {
-            List<List<string>> unorderedOperandLists = new List<List<string>>(inputList);
+            HashSet<List<string>> unorderedOperandLists = new HashSet<List<string>>(inputList);
             int minListSize = 2;
             int maxListSize = 2;
 
@@ -73,7 +90,7 @@ namespace CountdownSolver.Models
                     if (currentCollection.Count == currentSizeToAdd)
                     {
                         orderedOperandLists.Add(currentCollection);
-                        unorderedOperandLists.RemoveAt(index);
+                        unorderedOperandLists.Remove(currentCollection);
                         break;
                     }
                 }
@@ -84,39 +101,6 @@ namespace CountdownSolver.Models
                 }
             }
             return orderedOperandLists;
-        }
-
-        private void removeDuplicateOperandLists(ICollection<ICollection<string>> operandLists)
-        {
-
-            for(int index = 0; index < operandLists.Count; index++)
-            {
-                ICollection<string> currentList = operandLists.ElementAt(index);
-
-                for (int index2 = 0; index2 < operandLists.Count; index2++)
-                {
-
-                    ICollection<string> currentCheckList = operandLists.ElementAt(index2);
-                    if (currentList.Count == currentCheckList.Count)
-                    {
-                        bool remove = true;
-                        foreach (string anOperand in currentCheckList)
-                        {
-                            if (!currentList.Contains(anOperand))
-                            {
-                                remove = false;
-                            }
-                        }
-
-                        if (remove && index != index2)
-                        {
-                            operandLists.Remove(currentCheckList);
-                        }
-                    }
-                }
-
-            }
-
         }
 
         private List<Thread> createThreadList(List<List<string>> operandLists)
@@ -138,9 +122,10 @@ namespace CountdownSolver.Models
                 //final thread will go to the end of the list to avoid the possibility of missing indexes due to the / operator when calculating the range
                 if (count == (processorCount - 1))
                 {
+                    currentMinIndex = currentMaxIndex;
                     currentMaxIndex = operandLists.Count - 1;
                 }
-                NumbersCalculatorThread currentNumbersCalculatorThread = new NumbersCalculatorThread(currentMinIndex, currentMaxIndex, infixSolutions, operandLists, target, solutionsLimit);
+                NumbersCalculatorThread currentNumbersCalculatorThread = new NumbersCalculatorThread(currentMinIndex, currentMaxIndex, infixSolutions, postfixSolutions, operandLists, target, solutionsLimit);
                 Thread thread = new Thread(delegate ()
                 {
                     currentNumbersCalculatorThread.start();
@@ -167,15 +152,28 @@ namespace CountdownSolver.Models
                     operandLists.Add(operandPermutator.getCurrentOperandPermutation());
                 }
             }
-            return operandLists;
-        }
 
-        //private ICollection<ICollection<string>> getAllOperandPermutations2()
-        //{
-        //    OperandPermutator2 operandPermutator = new OperandPermutator2(operands);
-        //    ICollection<ICollection<string>> operandLists = operandPermutator.getOperandPermutations();
-        //    return operandLists;
-        //}
+            //remove duplicates, this is possible if duplicate numbers were supplied i.e [100, 10, 36, 36, 4, 9]
+            List<List<string>> operandListsNoDuplicates = new List<List<string>>();
+            bool addList;
+            foreach(List<string> outerList in operandLists)
+            {
+                addList = true;
+                foreach (List<string> innerList in operandListsNoDuplicates)
+                {
+                    if(outerList.SequenceEqual(innerList))
+                    {
+                        addList = false;
+                    }
+                }
+
+                if(addList)
+                {
+                    operandListsNoDuplicates.Add(outerList);
+                }
+            }
+            return operandListsNoDuplicates;
+        }
 
         private int calculateSolutionsLimit()
         {
